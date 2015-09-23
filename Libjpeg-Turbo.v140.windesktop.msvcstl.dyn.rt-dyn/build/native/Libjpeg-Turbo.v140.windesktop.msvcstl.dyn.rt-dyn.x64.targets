@@ -1,0 +1,21 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Force-Enable-turbojpeg-static-v140-windesktop-msvcstl-dyn-rt-dyn-x64)' == '' And ('$(PlatformToolset)' != 'v140' Or '$(ApplicationType)' != '' Or '$(Platform)' != 'x64')">
+    <Disable-turbojpeg-static-v140-windesktop-msvcstl-dyn-rt-dyn-x64>true</Disable-turbojpeg-static-v140-windesktop-msvcstl-dyn-rt-dyn-x64>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Force-Disable-turbojpeg-static-v140-windesktop-msvcstl-dyn-rt-dyn-x64)' != ''">
+    <Disable-turbojpeg-static-v140-windesktop-msvcstl-dyn-rt-dyn-x64>true</Disable-turbojpeg-static-v140-windesktop-msvcstl-dyn-rt-dyn-x64>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Disable-turbojpeg-static-v140-windesktop-msvcstl-dyn-rt-dyn-x64)' == ''">
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)' == 'Debug'">$(MSBuildThisFileDirectory)..\..\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\x64\Debug\turbojpeg-static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)' == 'Release'">$(MSBuildThisFileDirectory)..\..\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\x64\Release\turbojpeg-static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+     </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup Condition="'$(Configuration)' == 'Debug' And '$(Disable-turbojpeg-static-v140-windesktop-msvcstl-dyn-rt-dyn-x64)' == ''">
+    <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\lib\native\v140\windesktop\msvcstl\dyn\rt-dyn\x64\Debug\turbojpeg-static.pdb" />
+  </ItemGroup>
+
+</Project>
