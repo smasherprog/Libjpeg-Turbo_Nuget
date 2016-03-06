@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Libjpeg-Turbo</id>
+    <version>1.4.2.15</version>
+    <authors>Scott Lee</authors>
+    <owners>Scott Lee</owners>
+    <licenseUrl>http://www.libjpeg-turbo.org/About/License</licenseUrl>
+    <projectUrl>https://github.com/smasherprog/Libjpeg-Turbo_Nuget/</projectUrl>
+    <iconUrl>http://www.libjpeg-turbo.org/pmwiki/pub/skins/vgl/ljtlogo.gif</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>libjpeg-turbo is a JPEG image codec that uses SIMD instructions (MMX, SSE2, NEON) to accelerate baseline JPEG compression and decompression on x86, x86-64, and ARM systems. </description>
+    <summary>libjpeg-turbo is a JPEG image codec that uses SIMD instructions (MMX, SSE2, NEON) to accelerate baseline JPEG compression and decompression on x86, x86-64, and ARM systems. On such systems, libjpeg-turbo is generally 2-4x as fast as libjpeg, all else being equal. On other types of systems, libjpeg-turbo can still outperform libjpeg by a significant amount, by virtue of its highly-optimized Huffman coding routines. In many cases, the performance of libjpeg-turbo rivals that of proprietary high-speed JPEG codecs.</summary>
+
+    <releaseNotes>LibJpeg-Turbo</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Libjpeg-Turbo native C++ v120 windesktop dyn rt-dyn msvcstl static v140</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+</package>
