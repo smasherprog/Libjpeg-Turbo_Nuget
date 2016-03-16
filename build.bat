@@ -10,9 +10,6 @@ start /wait cmd.exe /k "cleanbuild.bat %filename%"
 call %SEVENZIP% e "%var%/%foundfile%.gz"
 call %SEVENZIP% x "%var%/%foundfile%"
 
-call powershell Invoke-WebRequest -OutFile nasm.zip http://www.nasm.us/pub/nasm/releasebuilds/2.12/win64/nasm-2.12-win64.zip
-call %SEVENZIP% e nasm.zip nasm.exe -r
-
 call powershell -Command "(gc %filename%/turbojpeg.h) -replace '#define __TURBOJPEG_H__', '%headeradd%' | Out-File '%filename%/turbojpeg.h'"
 call xcopy "%var%\%filename%\turbojpeg.h" Libjpeg-Turbo\build\native\include\ /E /H /K /y
 
