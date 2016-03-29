@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Libjpeg-Turbo</id>
-    <version>1.4.2.15</version>
+    <version>1.4.2.16</version>
     <authors>Scott Lee</authors>
     <owners>Scott Lee</owners>
     <licenseUrl>http://www.libjpeg-turbo.org/About/License</licenseUrl>
@@ -14,7 +14,7 @@
 
     <releaseNotes>LibJpeg-Turbo</releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>Libjpeg-Turbo native C++ v120 windesktop dyn rt-dyn msvcstl static v140</tags>
+    <tags>Libjpeg-Turbo native C++ v120 windesktop dyn rt-dyn msvcstl static v140 Android_Gcc</tags>
     <dependencies>
     </dependencies>
   </metadata>
