@@ -9,6 +9,7 @@ call %SEVENZIP% e "%var%/%foundfile%.gz" -aoa
 call %SEVENZIP% x "%var%/%foundfile%" -aoa
 
 call xcopy "%var%\%filename%" "%var%\android\libjpeg-turbo\" /E /H /K /y
+
 mkdir android\jni
 copy Application.mk android\jni\
 copy Android.mk android\

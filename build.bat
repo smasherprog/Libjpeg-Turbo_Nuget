@@ -1,7 +1,7 @@
 set SEVENZIP="C:\Program Files\7-Zip\7z.exe"
 set foundfile=""
 SET var=%cd%
-set headeradd=#define __TURBOJPEG_H__ #if _WIN32 #if defined _DLL #pragma comment(lib, "md/turbojpeg-static") #elif defined _MT #pragma comment(lib, "mt/turbojpeg-static") #endif #endif
+
 for %%g in (*.gz) do set foundfile=%%~ng
 set filename=%foundfile:.tar=%
 
@@ -10,7 +10,6 @@ start /wait cmd.exe /k "cleanbuild.bat %filename%"
 call %SEVENZIP% e "%var%/%foundfile%.gz" -aoa
 call %SEVENZIP% x "%var%/%foundfile%" -aoa
 
-call powershell -Command "(gc %filename%/turbojpeg.h) -replace '#define __TURBOJPEG_H__', '%headeradd%' | Out-File '%filename%/turbojpeg.h' -encoding ASCII"
 call xcopy "%var%\%filename%\turbojpeg.h" Libjpeg-Turbo\build\native\include\ /H /K /y
 start cmd.exe /k "android_build.bat"
 

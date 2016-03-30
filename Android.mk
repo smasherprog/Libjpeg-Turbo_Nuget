@@ -87,11 +87,27 @@ LOCAL_CFLAGS += \
 else ifeq ($(TARGET_ARCH_ABI),arm64-v8a)
 LOCAL_SRC_FILES += \
 	$(SOURCE_PATH)/simd/jsimd_arm64.c \
-	$(SOURCE_PATH)/simd/jsimd_arm64_neon.c \
+	$(SOURCE_PATH)/simd/jsimd_arm64_neon.S \
 	
 LOCAL_CFLAGS += \
 	-DSIZEOF_SIZE_T=8 \
-
+	
+else ifeq ($(TARGET_ARCH_ABI), mips64)
+LOCAL_SRC_FILES += \
+	$(SOURCE_PATH)/simd/jsimd_mips.c \
+	$(SOURCE_PATH)/simd/jsimd_mips_dspr2.S \
+	
+LOCAL_CFLAGS += \
+	-DSIZEOF_SIZE_T=8 \
+	
+else ifeq ($(TARGET_ARCH_ABI), mips)
+LOCAL_SRC_FILES += \
+	$(SOURCE_PATH)/simd/jsimd_mips.c \
+	$(SOURCE_PATH)/simd/jsimd_mips_dspr2.S \
+	
+LOCAL_CFLAGS += \
+	-DSIZEOF_SIZE_T=4 \
+	
 endif
 
 # libjpeg_la_SOURCES from Makefile.am
