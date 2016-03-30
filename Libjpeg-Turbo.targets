@@ -29,27 +29,27 @@
     </Link>
   </ItemDefinitionGroup>
   <Target Name="libjpeg_turbo_android" BeforeTargets="Link" DependsOnTargets="$(ComputeLinkInputsTargets)">
-		<ItemGroup Condition="'$(PlatformToolset)' == 'Gcc_4_9' And '$(Platform)' == 'x86' And '$(AndroidAPILevel)' != ''">
+		<ItemGroup Condition="'$(PlatformToolset)' == 'Clang_3_6' And '$(Platform)' == 'x86' And '$(AndroidAPILevel)' != ''">
 			<Link Include="$(MSBuildThisFileDirectory)lib\native\android\gcc\x86\libjpeg-turbo.so" />
 		</ItemGroup>
-		<ItemGroup Condition="'$(PlatformToolset)' == 'Gcc_4_9' And '$(Platform)' == 'x64' And '$(AndroidAPILevel)' != ''">
+		<ItemGroup Condition="'$(PlatformToolset)' == 'Clang_3_6' And '$(Platform)' == 'x64' And '$(AndroidAPILevel)' != ''">
 			<Link Include="$(MSBuildThisFileDirectory)lib\native\android\gcc\x86_64\libjpeg-turbo.so" />
 		</ItemGroup>
-		<ItemGroup Condition="'$(PlatformToolset)' == 'Gcc_4_9' And '$(Platform)' == 'ARM' And '$(AndroidAPILevel)' != ''">
+		<ItemGroup Condition="'$(PlatformToolset)' == 'Clang_3_6' And '$(Platform)' == 'ARM' And '$(AndroidAPILevel)' != ''">
 			<Link Include="$(MSBuildThisFileDirectory)lib\native\android\gcc\armeabi\libjpeg-turbo.so" />
 		</ItemGroup>
-		<ItemGroup Condition="'$(PlatformToolset)' == 'Gcc_4_9' And '$(Platform)' == 'ARM64' And '$(AndroidAPILevel)' != ''">
+		<ItemGroup Condition="'$(PlatformToolset)' == 'Clang_3_6' And '$(Platform)' == 'ARM64' And '$(AndroidAPILevel)' != ''">
 			<Link Include="$(MSBuildThisFileDirectory)lib\native\android\gcc\arm64-v8a\libjpeg-turbo.so" />
 		</ItemGroup>
-		<ItemGroup Condition="'$(PlatformToolset)' == 'Gcc_4_9' And '$(Platform)' == 'mips' And '$(AndroidAPILevel)' != ''">
+		<ItemGroup Condition="'$(PlatformToolset)' == 'Clang_3_6' And '$(Platform)' == 'mips' And '$(AndroidAPILevel)' != ''">
 			<Link Include="$(MSBuildThisFileDirectory)lib\native\android\gcc\mips\libjpeg-turbo.so" />
 		</ItemGroup>
-		<ItemGroup Condition="'$(PlatformToolset)' == 'Gcc_4_9' And '$(Platform)' == 'mips64' And '$(AndroidAPILevel)' != ''">
+		<ItemGroup Condition="'$(PlatformToolset)' == 'Clang_3_6' And '$(Platform)' == 'mips64' And '$(AndroidAPILevel)' != ''">
 			<Link Include="$(MSBuildThisFileDirectory)lib\native\android\gcc\mips64\libjpeg-turbo.so" />
 		</ItemGroup>
-		<ItemGroup Condition="'$(PlatformToolset)' == 'Gcc_4_9' And '$(Platform)' == 'armeabi-v7a' And '$(AndroidAPILevel)' != ''">
+		<ItemGroup Condition="'$(PlatformToolset)' == 'Clang_3_6' And '$(Platform)' == 'armeabi-v7a' And '$(AndroidAPILevel)' != ''">
 			<Link Include="$(MSBuildThisFileDirectory)lib\native\android\gcc\armeabi-v7a\libjpeg-turbo.so" />
 		</ItemGroup>
-    <Error Condition="'$(PlatformToolset)' != 'Gcc_4_9'" Text="The Libjpeg-Turbo NuGet package only contains binaries for Gcc 4.9." />
+    <Error Condition="'$(PlatformToolset)' != 'Clang_3_6'" Text="The Libjpeg-Turbo NuGet package only contains binaries for Clang_3_6. GCC has been depreciated for ndk development, USE CLANG" />
   </Target>
 </Project>

@@ -13,12 +13,13 @@ mkdir android\jni
 copy Application.mk android\jni\
 copy Android.mk android\
 copy AndroidManifest.xml android\
+copy /Y jsimd_arm64_neon.S android\libjpeg-turbo\simd\
 call xcopy "%var%\include" "%var%\android\include\" /E /H /K /y
 
 cd android
 call ndk-build
 cd ..
-call xcopy "%cd%\android\libs" "%cd%\libjpeg-turbo\lib\native\andriod\Gcc\" /E /H /K /y
+call xcopy "%cd%\android\libs" "%cd%\libjpeg-turbo\lib\native\andriod\clang\" /E /H /K /y
 
 call rd /s /q "android" 
 exit
