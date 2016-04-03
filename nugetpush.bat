@@ -1,3 +1,4 @@
+call del *.nupkg
 copy Libjpeg-Turbo.targets Libjpeg-Turbo\build\native\
 copy Libjpeg-Turbo.nuspec Libjpeg-Turbo\
 nuget pack Libjpeg-Turbo\Libjpeg-Turbo.nuspec

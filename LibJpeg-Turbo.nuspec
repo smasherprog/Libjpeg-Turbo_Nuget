@@ -2,6 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Libjpeg-Turbo</id>
+	<title>Libjpeg-Turbo 1.4.2</title>
     <version>1.4.2.16</version>
     <authors>Scott Lee</authors>
     <owners>Scott Lee</owners>

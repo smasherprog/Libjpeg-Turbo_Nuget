@@ -4,10 +4,6 @@ SET var=%cd%
 for %%g in (*.gz) do set foundfile=%%~ng
 set filename=%foundfile:.tar=%
 
-
-call %SEVENZIP% e "%var%/%foundfile%.gz" -aoa
-call %SEVENZIP% x "%var%/%foundfile%" -aoa
-
 call xcopy "%var%\%filename%" "%var%\android\libjpeg-turbo\" /E /H /K /y
 
 mkdir android\jni
