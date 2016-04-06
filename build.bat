@@ -10,7 +10,7 @@ start /wait cmd.exe /k "cleanbuild.bat %filename%"
 call %SEVENZIP% e "%var%/%foundfile%.gz" -aoa
 call %SEVENZIP% x "%var%/%foundfile%" -aoa
 
-call xcopy "%var%\%filename%\turbojpeg.h" Libjpeg-Turbo\build\native\include\ /H /K /y
+call xcopy "%var%\include" Libjpeg-Turbo\build\native\include\ /H /K /y
 start cmd.exe /k "android_build.bat"
 
 if exist "C:/Program Files (x86)/MSBuild/12.0/Bin/msbuild.exe" (

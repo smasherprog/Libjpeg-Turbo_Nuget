@@ -110,7 +110,6 @@ LOCAL_CFLAGS += \
 	
 endif
 
-# libjpeg_la_SOURCES from Makefile.am
 LOCAL_SRC_FILES += \
 	$(SOURCE_PATH)/jcapimin.c \
 	$(SOURCE_PATH)/jcapistd.c \
@@ -158,15 +157,9 @@ LOCAL_SRC_FILES += \
 	$(SOURCE_PATH)/jutils.c \
 	$(SOURCE_PATH)/jmemmgr.c \
 	$(SOURCE_PATH)/jmemnobs.c \
-
-# if WITH_ARITH_ENC from Makefile.am
-LOCAL_SRC_FILES += \
 	$(SOURCE_PATH)/jaricom.c \
 	$(SOURCE_PATH)/jcarith.c \
 	$(SOURCE_PATH)/jdarith.c \
-
-# libturbojpeg_la_SOURCES from Makefile.am
-LOCAL_SRC_FILES += \
 	$(SOURCE_PATH)/turbojpeg.c \
 	$(SOURCE_PATH)/transupp.c \
 	$(SOURCE_PATH)/jdatadst-tj.c \
@@ -211,4 +204,4 @@ LOCAL_CFLAGS += \
 	-DSTDC_HEADERS=1 \
 	-DWITH_SIMD=1 \
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)
