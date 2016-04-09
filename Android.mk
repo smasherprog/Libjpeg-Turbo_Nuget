@@ -1,181 +1,210 @@
-LOCAL_PATH := $(abspath $(call my-dir))
-include $(CLEAR_VARS)
+LOCAL_PATH := $(call my-dir)
 
-LOCAL_MODULE := libjpeg-turbo
-LOCAL_DISABLE_FATAL_LINKER_WARNINGS := true
-SOURCE_PATH := libjpeg-turbo
-
-ifneq ($(filter $(TARGET_ARCH_ABI), armeabi-v7a armeabi-v7a-hard x86),)
-LOCAL_ARM_NEON := true
-LOCAL_CFLAGS += -D__ARM_HAVE_NEON
-endif
-
-LOCAL_ASMFLAGS += -DELF
-
-ifeq ($(TARGET_ARCH_ABI),x86_64)
-LOCAL_SRC_FILES += \
-	$(SOURCE_PATH)/simd/jsimd_x86_64.c \
-	$(SOURCE_PATH)/simd/jfdctflt-sse-64.asm \
-	$(SOURCE_PATH)/simd/jccolor-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jcgray-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jcsample-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jdcolor-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jdmerge-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jdsample-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jfdctfst-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jfdctint-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jidctflt-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jidctfst-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jidctint-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jidctred-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jquantf-sse2-64.asm \
-	$(SOURCE_PATH)/simd/jquanti-sse2-64.asm \
-
-LOCAL_CFLAGS += \
-	-DSIZEOF_SIZE_T=8 \
-
-LOCAL_ASMFLAGS += -D__x86_64__
-
-else ifeq ($(TARGET_ARCH_ABI),x86)
-LOCAL_SRC_FILES += \
-	$(SOURCE_PATH)/simd/jsimd_i386.c \
-	$(SOURCE_PATH)/simd/jsimdcpu.asm \
-	$(SOURCE_PATH)/simd/jfdctflt-3dn.asm \
-	$(SOURCE_PATH)/simd/jidctflt-3dn.asm \
-	$(SOURCE_PATH)/simd/jquant-3dn.asm \
-	$(SOURCE_PATH)/simd/jccolor-mmx.asm \
-	$(SOURCE_PATH)/simd/jcgray-mmx.asm \
-	$(SOURCE_PATH)/simd/jcsample-mmx.asm \
-	$(SOURCE_PATH)/simd/jdcolor-mmx.asm \
-	$(SOURCE_PATH)/simd/jdmerge-mmx.asm \
-	$(SOURCE_PATH)/simd/jdsample-mmx.asm \
-	$(SOURCE_PATH)/simd/jfdctfst-mmx.asm \
-	$(SOURCE_PATH)/simd/jfdctint-mmx.asm \
-	$(SOURCE_PATH)/simd/jidctfst-mmx.asm \
-	$(SOURCE_PATH)/simd/jidctint-mmx.asm \
-	$(SOURCE_PATH)/simd/jidctred-mmx.asm \
-	$(SOURCE_PATH)/simd/jquant-mmx.asm \
-	$(SOURCE_PATH)/simd/jfdctflt-sse.asm \
-	$(SOURCE_PATH)/simd/jidctflt-sse.asm \
-	$(SOURCE_PATH)/simd/jquant-sse.asm \
-	$(SOURCE_PATH)/simd/jccolor-sse2.asm \
-	$(SOURCE_PATH)/simd/jcgray-sse2.asm \
-	$(SOURCE_PATH)/simd/jcsample-sse2.asm \
-	$(SOURCE_PATH)/simd/jdcolor-sse2.asm \
-	$(SOURCE_PATH)/simd/jdmerge-sse2.asm \
-	$(SOURCE_PATH)/simd/jdsample-sse2.asm \
-	$(SOURCE_PATH)/simd/jfdctfst-sse2.asm \
-	$(SOURCE_PATH)/simd/jfdctint-sse2.asm \
-	$(SOURCE_PATH)/simd/jidctflt-sse2.asm \
-	$(SOURCE_PATH)/simd/jidctfst-sse2.asm \
-	$(SOURCE_PATH)/simd/jidctint-sse2.asm \
-	$(SOURCE_PATH)/simd/jidctred-sse2.asm \
-	$(SOURCE_PATH)/simd/jquantf-sse2.asm \
-	$(SOURCE_PATH)/simd/jquanti-sse2.asm \
-
-LOCAL_CFLAGS += \
-	-DSIZEOF_SIZE_T=4 \
-
-else ifneq ($(filter $(TARGET_ARCH_ABI), armeabi-v7a armeabi-v7a-hard armeabi),)
-LOCAL_SRC_FILES += \
-	$(SOURCE_PATH)/simd/jsimd_arm.c \
-	$(SOURCE_PATH)/simd/jsimd_arm_neon.S \
-
-LOCAL_CFLAGS += \
-	-DSIZEOF_SIZE_T=4 \
-
-else ifeq ($(TARGET_ARCH_ABI),arm64-v8a)
-LOCAL_SRC_FILES += \
-	$(SOURCE_PATH)/simd/jsimd_arm64.c \
-	$(SOURCE_PATH)/simd/jsimd_arm64_neon.S \
-	
-LOCAL_CFLAGS += \
-	-DSIZEOF_SIZE_T=8 \
-	
-else ifeq ($(TARGET_ARCH_ABI), mips64)
-LOCAL_SRC_FILES += \
-	$(SOURCE_PATH)/simd/jsimd_mips.c \
-	$(SOURCE_PATH)/simd/jsimd_mips_dspr2.S \
-	
-LOCAL_CFLAGS += \
-	-DSIZEOF_SIZE_T=8 \
-	
-else ifeq ($(TARGET_ARCH_ABI), mips)
-LOCAL_SRC_FILES += \
-	$(SOURCE_PATH)/simd/jsimd_mips.c \
-	$(SOURCE_PATH)/simd/jsimd_mips_dspr2.S \
-	
-LOCAL_CFLAGS += \
+armeabi_c_flags := \
+	-D__ARM_HAVE_NEON \
 	-DSIZEOF_SIZE_T=4 \
 	
-endif
+armeabi_asm_flags := \
+	
+armeabi_src_files := \
+	libjpeg-turbo/simd/jsimd_arm.c \
+	libjpeg-turbo/simd/jsimd_arm_neon.S \
 
-LOCAL_SRC_FILES += \
-	$(SOURCE_PATH)/jcapimin.c \
-	$(SOURCE_PATH)/jcapistd.c \
-	$(SOURCE_PATH)/jccoefct.c \
-	$(SOURCE_PATH)/jccolor.c \
-	$(SOURCE_PATH)/jcdctmgr.c \
-	$(SOURCE_PATH)/jchuff.c \
-	$(SOURCE_PATH)/jcinit.c \
-	$(SOURCE_PATH)/jcmainct.c \
-	$(SOURCE_PATH)/jcmarker.c \
-	$(SOURCE_PATH)/jcmaster.c \
-	$(SOURCE_PATH)/jcomapi.c \
-	$(SOURCE_PATH)/jcparam.c \
-	$(SOURCE_PATH)/jcphuff.c \
-	$(SOURCE_PATH)/jcprepct.c \
-	$(SOURCE_PATH)/jcsample.c \
-	$(SOURCE_PATH)/jctrans.c \
-	$(SOURCE_PATH)/jdapimin.c \
-	$(SOURCE_PATH)/jdapistd.c \
-	$(SOURCE_PATH)/jdatadst.c \
-	$(SOURCE_PATH)/jdatasrc.c \
-	$(SOURCE_PATH)/jdcoefct.c \
-	$(SOURCE_PATH)/jdcolor.c \
-	$(SOURCE_PATH)/jddctmgr.c \
-	$(SOURCE_PATH)/jdhuff.c \
-	$(SOURCE_PATH)/jdinput.c \
-	$(SOURCE_PATH)/jdmainct.c \
-	$(SOURCE_PATH)/jdmarker.c \
-	$(SOURCE_PATH)/jdmaster.c \
-	$(SOURCE_PATH)/jdmerge.c \
-	$(SOURCE_PATH)/jdphuff.c \
-	$(SOURCE_PATH)/jdpostct.c \
-	$(SOURCE_PATH)/jdsample.c \
-	$(SOURCE_PATH)/jdtrans.c \
-	$(SOURCE_PATH)/jerror.c \
-	$(SOURCE_PATH)/jfdctflt.c \
-	$(SOURCE_PATH)/jfdctfst.c \
-	$(SOURCE_PATH)/jfdctint.c \
-	$(SOURCE_PATH)/jidctflt.c \
-	$(SOURCE_PATH)/jidctfst.c \
-	$(SOURCE_PATH)/jidctint.c \
-	$(SOURCE_PATH)/jidctred.c \
-	$(SOURCE_PATH)/jquant1.c \
-	$(SOURCE_PATH)/jquant2.c \
-	$(SOURCE_PATH)/jutils.c \
-	$(SOURCE_PATH)/jmemmgr.c \
-	$(SOURCE_PATH)/jmemnobs.c \
-	$(SOURCE_PATH)/jaricom.c \
-	$(SOURCE_PATH)/jcarith.c \
-	$(SOURCE_PATH)/jdarith.c \
-	$(SOURCE_PATH)/turbojpeg.c \
-	$(SOURCE_PATH)/transupp.c \
-	$(SOURCE_PATH)/jdatadst-tj.c \
-	$(SOURCE_PATH)/jdatasrc-tj.c \
+armeabi_exclude_files := 
 
-LOCAL_C_INCLUDES += \
+arm64-v8a_c_flags := \
+	-D__ARM_HAVE_NEON \
+	-DSIZEOF_SIZE_T=8 \
+	
+arm64-v8a_asm_flags := \
+	
+arm64-v8a_src_files := \
+	libjpeg-turbo/simd/jsimd_arm64.c \
+	libjpeg-turbo/simd/jsimd_arm64_neon.S \
+		
+arm64-v8a_exclude_files := \
+
+
+armeabi-v7a-hard_c_flags := \
+	-D__ARM_HAVE_NEON \
+	-DSIZEOF_SIZE_T=4 \
+	
+armeabi-v7a-hard_asm_flags := \
+	
+armeabi-v7a-hard_src_files := \
+	libjpeg-turbo/simd/jsimd_arm.c \
+	libjpeg-turbo/simd/jsimd_arm_neon.S \
+
+armeabi-v7a-hard_exclude_files := 
+		
+		
+armeabi-v7a_c_flags := \
+	-D__ARM_HAVE_NEON \
+	-DSIZEOF_SIZE_T=4 \
+	
+armeabi-v7a_asm_flags := \
+	
+armeabi-v7a_src_files := \
+	libjpeg-turbo/simd/jsimd_arm.c \
+	libjpeg-turbo/simd/jsimd_arm_neon.S \
+
+armeabi-v7a_exclude_files := 
+
+
+x86_64_c_flags := \
+	-DSIZEOF_SIZE_T=8 \
+	
+x86_64_asm_flags := \
+	-D__x86_64__ \
+	
+x86_64_src_files := \
+	libjpeg-turbo/simd/jsimd_x86_64.c \
+	libjpeg-turbo/simd/jfdctflt-sse-64.asm \
+	libjpeg-turbo/simd/jccolor-sse2-64.asm \
+	libjpeg-turbo/simd/jcgray-sse2-64.asm \
+	libjpeg-turbo/simd/jcsample-sse2-64.asm \
+	libjpeg-turbo/simd/jdcolor-sse2-64.asm \
+	libjpeg-turbo/simd/jdmerge-sse2-64.asm \
+	libjpeg-turbo/simd/jdsample-sse2-64.asm \
+	libjpeg-turbo/simd/jfdctfst-sse2-64.asm \
+	libjpeg-turbo/simd/jfdctint-sse2-64.asm \
+	libjpeg-turbo/simd/jidctflt-sse2-64.asm \
+	libjpeg-turbo/simd/jidctfst-sse2-64.asm \
+	libjpeg-turbo/simd/jidctint-sse2-64.asm \
+	libjpeg-turbo/simd/jidctred-sse2-64.asm \
+	libjpeg-turbo/simd/jquantf-sse2-64.asm \
+	libjpeg-turbo/simd/jquanti-sse2-64.asm \
+	
+x86_64_exclude_files := 
+
+x86_c_flags := \
+	-DSIZEOF_SIZE_T=4 \
+	
+x86_asm_flags := 
+	
+x86_src_files := \
+	libjpeg-turbo/simd/jsimd_i386.c \
+	libjpeg-turbo/simd/jsimdcpu.asm \
+	libjpeg-turbo/simd/jfdctflt-3dn.asm \
+	libjpeg-turbo/simd/jidctflt-3dn.asm \
+	libjpeg-turbo/simd/jquant-3dn.asm \
+	libjpeg-turbo/simd/jccolor-mmx.asm \
+	libjpeg-turbo/simd/jcgray-mmx.asm \
+	libjpeg-turbo/simd/jcsample-mmx.asm \
+	libjpeg-turbo/simd/jdcolor-mmx.asm \
+	libjpeg-turbo/simd/jdmerge-mmx.asm \
+	libjpeg-turbo/simd/jdsample-mmx.asm \
+	libjpeg-turbo/simd/jfdctfst-mmx.asm \
+	libjpeg-turbo/simd/jfdctint-mmx.asm \
+	libjpeg-turbo/simd/jidctfst-mmx.asm \
+	libjpeg-turbo/simd/jidctint-mmx.asm \
+	libjpeg-turbo/simd/jidctred-mmx.asm \
+	libjpeg-turbo/simd/jquant-mmx.asm \
+	libjpeg-turbo/simd/jfdctflt-sse.asm \
+	libjpeg-turbo/simd/jidctflt-sse.asm \
+	libjpeg-turbo/simd/jquant-sse.asm \
+	libjpeg-turbo/simd/jccolor-sse2.asm \
+	libjpeg-turbo/simd/jcgray-sse2.asm \
+	libjpeg-turbo/simd/jcsample-sse2.asm \
+	libjpeg-turbo/simd/jdcolor-sse2.asm \
+	libjpeg-turbo/simd/jdmerge-sse2.asm \
+	libjpeg-turbo/simd/jdsample-sse2.asm \
+	libjpeg-turbo/simd/jfdctfst-sse2.asm \
+	libjpeg-turbo/simd/jfdctint-sse2.asm \
+	libjpeg-turbo/simd/jidctflt-sse2.asm \
+	libjpeg-turbo/simd/jidctfst-sse2.asm \
+	libjpeg-turbo/simd/jidctint-sse2.asm \
+	libjpeg-turbo/simd/jidctred-sse2.asm \
+	libjpeg-turbo/simd/jquantf-sse2.asm \
+	libjpeg-turbo/simd/jquanti-sse2.asm \
+
+x86_exclude_files := 
+
+mips_c_flags := \
+	-DSIZEOF_SIZE_T=4 \
+  
+mips_asm_flags := \
+
+mips_src_files :=  \
+	libjpeg-turbo/simd/jsimd_mips.c \
+	libjpeg-turbo/simd/jsimd_mips_dspr2.S \
+
+mips_exclude_files := \
+
+
+mips64_c_flags := \
+	-DSIZEOF_SIZE_T=8 \
+	
+mips64_asm_flags := \
+
+mips64_src_files := \
+	libjpeg-turbo/simd/jsimd_mips.c \
+	libjpeg-turbo/simd/jsimd_mips_dspr2.S \
+
+mips64_exclude_files := \
+
+common_src_files := \
+	libjpeg-turbo/jcapimin.c \
+	libjpeg-turbo/jcapistd.c \
+	libjpeg-turbo/jccoefct.c \
+	libjpeg-turbo/jccolor.c \
+	libjpeg-turbo/jcdctmgr.c \
+	libjpeg-turbo/jchuff.c \
+	libjpeg-turbo/jcinit.c \
+	libjpeg-turbo/jcmainct.c \
+	libjpeg-turbo/jcmarker.c \
+	libjpeg-turbo/jcmaster.c \
+	libjpeg-turbo/jcomapi.c \
+	libjpeg-turbo/jcparam.c \
+	libjpeg-turbo/jcphuff.c \
+	libjpeg-turbo/jcprepct.c \
+	libjpeg-turbo/jcsample.c \
+	libjpeg-turbo/jctrans.c \
+	libjpeg-turbo/jdapimin.c \
+	libjpeg-turbo/jdapistd.c \
+	libjpeg-turbo/jdatadst.c \
+	libjpeg-turbo/jdatasrc.c \
+	libjpeg-turbo/jdcoefct.c \
+	libjpeg-turbo/jdcolor.c \
+	libjpeg-turbo/jddctmgr.c \
+	libjpeg-turbo/jdhuff.c \
+	libjpeg-turbo/jdinput.c \
+	libjpeg-turbo/jdmainct.c \
+	libjpeg-turbo/jdmarker.c \
+	libjpeg-turbo/jdmaster.c \
+	libjpeg-turbo/jdmerge.c \
+	libjpeg-turbo/jdphuff.c \
+	libjpeg-turbo/jdpostct.c \
+	libjpeg-turbo/jdsample.c \
+	libjpeg-turbo/jdtrans.c \
+	libjpeg-turbo/jerror.c \
+	libjpeg-turbo/jfdctflt.c \
+	libjpeg-turbo/jfdctfst.c \
+	libjpeg-turbo/jfdctint.c \
+	libjpeg-turbo/jidctflt.c \
+	libjpeg-turbo/jidctfst.c \
+	libjpeg-turbo/jidctint.c \
+	libjpeg-turbo/jidctred.c \
+	libjpeg-turbo/jquant1.c \
+	libjpeg-turbo/jquant2.c \
+	libjpeg-turbo/jutils.c \
+	libjpeg-turbo/jmemmgr.c \
+	libjpeg-turbo/jmemnobs.c \
+	libjpeg-turbo/jaricom.c \
+	libjpeg-turbo/jcarith.c \
+	libjpeg-turbo/jdarith.c \
+	libjpeg-turbo/turbojpeg.c \
+	libjpeg-turbo/transupp.c \
+	libjpeg-turbo/jdatadst-tj.c \
+	libjpeg-turbo/jdatasrc-tj.c \
+
+common_c_includes := \
 	$(LOCAL_PATH)/include \
+	$(LOCAL_PATH)/libjpeg-turbo/simd \
+	$(LOCAL_PATH)/libjpeg-turbo \
 
-LOCAL_C_INCLUDES += \
-	$(LOCAL_PATH)/$(SOURCE_PATH)/simd \
-	$(LOCAL_PATH)/$(SOURCE_PATH) \
 
-LOCAL_EXPORT_C_INCLUDES := \
-	$(LOCAL_PATH)/$(SOURCE_PATH) \
-
-LOCAL_CFLAGS += \
+common_c_flags := \
 	-DBUILD="20141110" \
 	-DC_ARITH_CODING_SUPPORTED=1 \
 	-DD_ARITH_CODING_SUPPORTED=1 \
@@ -204,4 +233,31 @@ LOCAL_CFLAGS += \
 	-DSTDC_HEADERS=1 \
 	-DWITH_SIMD=1 \
 
+common_asm_flags := -DELF
+target_arch := $(TARGET_ARCH_ABI)
+	
+target_c_flags    := $(common_c_flags) $($(target_arch)_c_flags)
+target_c_includes := $(common_c_includes)
+target_asm_flags  := $(common_asm_flags) $($(target_arch)_asm_flags)
+target_src_files  := $(common_src_files) $($(target_arch)_src_files)
+target_src_files  := $(filter-out $($(target_arch)_exclude_files), $(target_src_files))	
+	
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := $(target_src_files)
+LOCAL_CFLAGS := $(target_c_flags)
+LOCAL_C_INCLUDES := $(target_c_includes)
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE := libjpeg-turbo_md
+LOCAL_ASMFLAGS := $(target_asm_flags)
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := $(target_src_files)
+LOCAL_CFLAGS := $(target_c_flags)
+LOCAL_C_INCLUDES := $(target_c_includes)
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE := libjpeg-turbo_mt
+LOCAL_ASMFLAGS := $(target_asm_flags)
 include $(BUILD_STATIC_LIBRARY)
+
+
