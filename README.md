@@ -8,4 +8,4 @@
 </ul>
 <p>After installing Cmake and 7zip, download the <b>.tar.gz</b> file and place it in the same location as the scripts.<p>
 <p>Run build.bat</p>
-<p>This will build VS2013 VS2015 x86 x64 /MT and /MD library builds</p>
+<p>This will build VS2013 VS2015 x86 x64 /MT /MD ndk x86_64 x86 mips mips64 armeabi-v7a arm64-v8a armeabi armeabi-v7a-hard both dynamic and static</p>
