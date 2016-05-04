@@ -59,6 +59,7 @@ x86_64_asm_flags := \
 	
 x86_64_src_files := \
 	libjpeg-turbo/simd/jsimd_x86_64.c \
+	libjpeg-turbo/simd/jchuff-sse2-64.asm \
 	libjpeg-turbo/simd/jfdctflt-sse-64.asm \
 	libjpeg-turbo/simd/jccolor-sse2-64.asm \
 	libjpeg-turbo/simd/jcgray-sse2-64.asm \
@@ -84,6 +85,7 @@ x86_asm_flags :=
 	
 x86_src_files := \
 	libjpeg-turbo/simd/jsimd_i386.c \
+	libjpeg-turbo/simd/jchuff-sse2.asm \
 	libjpeg-turbo/simd/jsimdcpu.asm \
 	libjpeg-turbo/simd/jfdctflt-3dn.asm \
 	libjpeg-turbo/simd/jidctflt-3dn.asm \

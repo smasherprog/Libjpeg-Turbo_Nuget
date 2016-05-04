@@ -19,7 +19,7 @@ copy jconfigint.h %dstnuget%\build\native\include
 copy turbojpeg.h %dstnuget%\build\native\include
 copy jsimdcfg.inc %dstnuget%\build\native\include
 
-start cmd.exe /k "android_build.bat "%filename%""
+start cmd.exe /k "android_build.bat"
 
 if exist "C:/Program Files (x86)/MSBuild/12.0/Bin/msbuild.exe" (
 	call xcopy "%var%\%filename%" "%var%\libjpeg-turbo-src-64-VS2013\" /E /H /K /y

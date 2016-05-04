@@ -1,6 +1,8 @@
 SET var=%cd%
 SET dst_src=libjpeg-turbo-android-src
-set filename=%~1
+
+for %%g in (*.gz) do set foundfile=%%~ng
+set filename=%foundfile:.tar=%
 
 call xcopy "%var%\%filename%" "%var%\%dst_src%\libjpeg-turbo\" /E /H /K /y
 
@@ -8,7 +10,6 @@ mkdir %dst_src%\jni
 copy Application.mk %dst_src%\jni\
 copy Android.mk %dst_src%\
 copy AndroidManifest.xml %dst_src%\
-copy /Y jsimd_arm64_neon.S %dst_src%\libjpeg-turbo\simd\
 
 mkdir %var%\%dst_src%\include
 copy config.h %var%\%dst_src%\include
