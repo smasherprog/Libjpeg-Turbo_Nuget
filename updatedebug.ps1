@@ -22,7 +22,7 @@ foreach($node in  $xml.Project.ItemDefinitionGroup)
         if ($node.ClCompile.RuntimeLibrary -ne $null) {
             $node.ClCompile.RuntimeLibrary = $runtimelib
         } else {
-            $newnode = $node.ClCompile.AppendChild($xml.CreateElement($runtimelib,$xml.DocumentElement.NamespaceURI))
+            $newnode = $node.ClCompile.AppendChild($xml.CreateElement('RuntimeLibrary',$xml.DocumentElement.NamespaceURI))
             $newnode.AppendChild($xml.CreateTextNode($runtimelib))
         }
     }
