@@ -25,6 +25,7 @@ cd ..
 call rd /s /q "%var%\%dst_src%\obj\local\arm64-v8a\objs"
 call rd /s /q "%var%\%dst_src%\obj\local\armeabi\objs"
 call rd /s /q "%var%\%dst_src%\obj\local\armeabi-v7a\objs"
+call rd /s /q "%var%\%dst_src%\obj\local\armeabi-v7a-hard\objs"
 call rd /s /q "%var%\%dst_src%\obj\local\mips64\objs"
 call rd /s /q "%var%\%dst_src%\obj\local\mips\objs"
 call rd /s /q "%var%\%dst_src%\obj\local\x86\objs"

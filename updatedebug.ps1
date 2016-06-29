@@ -1,5 +1,6 @@
 param(
-    [string]$path
+    [string]$path,
+	[string]$runtimelib
 )
 
 $xml = [xml](Get-Content $path)
@@ -11,6 +12,18 @@ foreach($node in  $xml.Project.ItemDefinitionGroup | where {$_.Condition -like '
         } else {
             $newnode = $node.ClCompile.AppendChild($xml.CreateElement('ProgramDataBaseFileName',$xml.DocumentElement.NamespaceURI))
             $newnode.AppendChild($xml.CreateTextNode('$(OutDir)$(ProjectName).pdb'))
+        }
+    }
+}
+
+foreach($node in  $xml.Project.ItemDefinitionGroup)
+{
+    if ($node.ClCompile -ne $null) {
+        if ($node.ClCompile.RuntimeLibrary -ne $null) {
+            $node.ClCompile.RuntimeLibrary = $runtimelib
+        } else {
+            $newnode = $node.ClCompile.AppendChild($xml.CreateElement($runtimelib,$xml.DocumentElement.NamespaceURI))
+            $newnode.AppendChild($xml.CreateTextNode($runtimelib))
         }
     }
 }
