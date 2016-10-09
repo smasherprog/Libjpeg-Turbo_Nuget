@@ -58,3 +58,4 @@ if exist "C:/Program Files (x86)/MSBuild/14.0/Bin/msbuild.exe" (
 	call rd /s /q "libjpeg-turbo-src-32-VS2015"
 	call rd /s /q "libjpeg-turbo-src-64-VS2015"
 )
+exit

@@ -17,6 +17,8 @@ copy jconfig.h %var%\%dst_src%\include
 copy jconfigint.h %var%\%dst_src%\include
 copy turbojpeg.h %var%\%dst_src%\include
 copy jsimdcfg.inc %var%\%dst_src%\include
+copy jsimd_mips.c %var%\%dst_src%\libjpeg-turbo\simd
+copy jmemmgr.c %var%\%dst_src%\libjpeg-turbo
 
 cd %dst_src%
 call ndk-build

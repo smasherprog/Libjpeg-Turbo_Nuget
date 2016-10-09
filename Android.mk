@@ -24,20 +24,6 @@ arm64-v8a_src_files := \
 		
 arm64-v8a_exclude_files := \
 
-
-armeabi-v7a-hard_c_flags := \
-	-D__ARM_HAVE_NEON \
-	-DSIZEOF_SIZE_T=4 \
-	
-armeabi-v7a-hard_asm_flags := \
-	
-armeabi-v7a-hard_src_files := \
-	libjpeg-turbo/simd/jsimd_arm.c \
-	libjpeg-turbo/simd/jsimd_arm_neon.S \
-
-armeabi-v7a-hard_exclude_files := 
-		
-		
 armeabi-v7a_c_flags := \
 	-D__ARM_HAVE_NEON \
 	-DSIZEOF_SIZE_T=4 \
@@ -207,7 +193,6 @@ common_c_includes := \
 
 
 common_c_flags := \
-	-DBUILD="20141110" \
 	-DC_ARITH_CODING_SUPPORTED=1 \
 	-DD_ARITH_CODING_SUPPORTED=1 \
 	-DBITS_IN_JSAMPLE=8 \
@@ -229,7 +214,7 @@ common_c_flags := \
 	-DHAVE_UNSIGNED_SHORT=1 \
 	-DINLINE="inline __attribute__((always_inline))" \
 	-DJPEG_LIB_VERSION=62 \
-	-DLIBJPEG_TURBO_VERSION="1.4.2" \
+	-DLIBJPEG_TURBO_VERSION="1.5.1" \
 	-DMEM_SRCDST_SUPPORTED=1 \
 	-DNEED_SYS_TYPES_H=1 \
 	-DSTDC_HEADERS=1 \
@@ -251,6 +236,7 @@ LOCAL_C_INCLUDES := $(target_c_includes)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libjpeg-turbo_md
 LOCAL_ASMFLAGS := $(target_asm_flags)
+LOCAL_DISABLE_FATAL_LINKER_WARNINGS := true
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
