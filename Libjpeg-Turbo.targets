@@ -85,5 +85,5 @@
 		<Copy SourceFiles="@(MyPackageSourceFiles)" DestinationFolder="$(OutputPath)" /> 
 		<Error Condition="'$(PlatformToolset)' != 'Clang_3_8' And '$(AndroidAPILevel)' != ''" Text="The Libjpeg-Turbo NuGet package only contains binaries for Clang_3_8. GCC has been depreciated for ndk development, USE CLANG" />
 		<Error Condition="'$(UseOfStl)' != 'c++_static' And '$(UseOfStl)' != 'c++_shared' And '$(AndroidAPILevel)' != ''" Text="libjpeg-turbo requires linking against the LLVM libc++. Please set Project Properties -> Configuration Properties -> General -> Use of STL to be 'LLVM libc++'."  />
-	</Target>
-</Project>
+		</Target>
+	</Project>
