@@ -1,61 +1,58 @@
-set SEVENZIP="C:\Program Files\7-Zip\7z.exe"
-set foundfile=""
+
 SET var=%cd%
 set dstnuget=libjpeg_turbo_nuget
+set msbuild="C:/Program Files (x86)/MSBuild/14.0/Bin/msbuild.exe"
 
-for %%g in (*.gz) do set foundfile=%%~ng
-set filename=%foundfile:.tar=%
+call rmdir Libjpeg-turbo-VS /s /q
+call git clone https://github.com/smasherprog/Libjpeg-turbo-VS/
+cd Libjpeg-turbo-VS
+call git submodule update --init --recursive
 
-call %SEVENZIP% e "%var%/%foundfile%.gz" -aoa
-call %SEVENZIP% x "%var%/%foundfile%" -aoa
+mkdir ..\%dstnuget%\build\native\include
+copy jconfig.h ..\%dstnuget%\build\native\include
+copy jconfigint.h ..\%dstnuget%\build\native\include
+copy libjpeg-turbo\turbojpeg.h ..\%dstnuget%\build\native\include
 
-call del %foundfile%
-call del pax_global_header
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Debug/md/ /p:Platform=x86 /p:PlatformToolset=v120 /p:Configuration=Debug_shared /p:RuntimeLibrary=MultiThreadedDebugDLL /p:DebugSymbols=true /p:DebugType=pdbonly
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Debug/mt/ /p:Platform=x86 /p:PlatformToolset=v120 /p:Configuration=Debug_static /p:RuntimeLibrary=MultiThreadedDebug /p:DebugSymbols=true /p:DebugType=pdbonly
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Release/md/ /p:Platform=x86 /p:PlatformToolset=v120 /p:Configuration=Release_shared /p:RuntimeLibrary=MultiThreadedDLL /p:DebugSymbols=false /p:DebugType=none
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Release/mt/ /p:Platform=x86 /p:PlatformToolset=v120 /p:Configuration=Release_static /p:RuntimeLibrary=MultiThreaded /p:DebugSymbols=false /p:DebugType=none
 
-mkdir %dstnuget%\build\native\include
-copy config.h %dstnuget%\build\native\include
-copy jconfig.h %dstnuget%\build\native\include
-copy jconfigint.h %dstnuget%\build\native\include
-copy turbojpeg.h %dstnuget%\build\native\include
-copy jsimdcfg.inc %dstnuget%\build\native\include
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win64 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/x64/Debug/md/ /p:Platform=x64 /p:PlatformToolset=v120 /p:Configuration=Debug_shared /p:RuntimeLibrary=MultiThreadedDebugDLL /p:DebugSymbols=true /p:DebugType=pdbonly
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win64 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/x64/Debug/mt/ /p:Platform=x64 /p:PlatformToolset=v120 /p:Configuration=Debug_static /p:RuntimeLibrary=MultiThreadedDebug /p:DebugSymbols=true /p:DebugType=pdbonly
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win64 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/x64/Release/md/ /p:Platform=x64 /p:PlatformToolset=v120 /p:Configuration=Release_shared /p:RuntimeLibrary=MultiThreadedDLL /p:DebugSymbols=false /p:DebugType=none
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win64 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/x64/Release/mt/ /p:Platform=x64 /p:PlatformToolset=v120 /p:Configuration=Release_static /p:RuntimeLibrary=MultiThreaded /p:DebugSymbols=false /p:DebugType=none
 
-start cmd.exe /k "android_build.bat"
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/Win32/Debug/md/ /p:Platform=x86 /p:PlatformToolset=v140 /p:Configuration=Debug_shared /p:RuntimeLibrary=MultiThreadedDebugDLL /p:DebugSymbols=true /p:DebugType=pdbonly
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/Win32/Debug/mt/ /p:Platform=x86 /p:PlatformToolset=v140 /p:Configuration=Debug_static /p:RuntimeLibrary=MultiThreadedDebug /p:DebugSymbols=true /p:DebugType=pdbonly
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/Win32/Release/md/ /p:Platform=x86 /p:PlatformToolset=v140 /p:Configuration=Release_shared /p:RuntimeLibrary=MultiThreadedDLL /p:DebugSymbols=false /p:DebugType=none
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/Win32/Release/mt/ /p:Platform=x86 /p:PlatformToolset=v140 /p:Configuration=Release_static /p:RuntimeLibrary=MultiThreaded /p:DebugSymbols=false /p:DebugType=none
 
-if exist "C:/Program Files (x86)/MSBuild/12.0/Bin/msbuild.exe" (
-	call xcopy "%var%\%filename%" "%var%\libjpeg-turbo-src-64-VS2013\" /E /H /K /y
-	call xcopy "%var%\%filename%" "%var%\libjpeg-turbo-src-32-VS2013\" /E /H /K /y
-	copy jconfigint.h "%var%\libjpeg-turbo-src-64-VS2013"
-	copy jconfigint.h "%var%\libjpeg-turbo-src-32-VS2013"
-	call copy nasm.exe libjpeg-turbo-src-32-VS2013\simd\
-	call copy nasm.exe libjpeg-turbo-src-64-VS2013\simd\
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-32-VS2013" "Visual Studio 12 2013" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Debug/md/ /p:Configuration=Debug /p:RuntimeLibrary=MultiThreadedDebugDLL /p:DebugSymbols=true /p:DebugType=pdbonly" "MultiThreadedDebugDLL""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-32-VS2013" "Visual Studio 12 2013" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Debug/mt/ /p:Configuration=Debug /p:RuntimeLibrary=MultiThreadedDebug /p:DebugSymbols=true /p:DebugType=pdbonly" "MultiThreadedDebug""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-32-VS2013" "Visual Studio 12 2013" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Release/md/ /p:Configuration=Release /p:RuntimeLibrary=MultiThreadedDLL /p:DebugSymbols=false /p:DebugType=none" "MultiThreadedDLL""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-32-VS2013" "Visual Studio 12 2013" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Release/mt/ /p:Configuration=Release /p:RuntimeLibrary=MultiThreaded /p:DebugSymbols=false /p:DebugType=none" "MultiThreaded""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-64-VS2013" "Visual Studio 12 2013 Win64" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/x64/Debug/md/ /p:Configuration=Debug /p:RuntimeLibrary=MultiThreadedDebugDLL /p:DebugSymbols=true /p:DebugType=pdbonly" "MultiThreadedDebugDLL""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-64-VS2013" "Visual Studio 12 2013 Win64" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/x64/Debug/mt/ /p:Configuration=Debug /p:RuntimeLibrary=MultiThreadedDebug /p:DebugSymbols=true /p:DebugType=pdbonly" "MultiThreadedDebug""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-64-VS2013" "Visual Studio 12 2013 Win64" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/x64/Release/md/ /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v120 /p:DebugSymbols=false /p:DebugType=none" "MultiThreadedDLL""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-64-VS2013" "Visual Studio 12 2013 Win64" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/x64/Release/mt/ /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v120 /p:DebugSymbols=false /p:DebugType=none" "MultiThreaded""
-	call rd /s /q "libjpeg-turbo-src-32-VS2013"
-	call rd /s /q "libjpeg-turbo-src-64-VS2013"
-)
-if exist "C:/Program Files (x86)/MSBuild/14.0/Bin/msbuild.exe" (
-	call xcopy "%var%\%filename%" "%var%\libjpeg-turbo-src-32-VS2015\" /E /H /K /y
-	call xcopy "%var%\%filename%" "%var%\libjpeg-turbo-src-64-VS2015\" /E /H /K /y
-	copy jconfigint.h "%var%\libjpeg-turbo-src-32-VS2015"
-	copy jconfigint.h "%var%\libjpeg-turbo-src-64-VS2015"
-	
-	call copy nasm.exe libjpeg-turbo-src-32-VS2015\simd\
-	call copy nasm.exe libjpeg-turbo-src-64-VS2015\simd\
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-32-VS2015" "Visual Studio 14 2015" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/Win32/Debug/md/ /p:Configuration=Debug /p:Platform=Win32 /p:PlatformToolset=v140 /p:DebugSymbols=true /p:DebugType=pdbonly" "MultiThreadedDebugDLL""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-32-VS2015" "Visual Studio 14 2015" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/Win32/Debug/mt/ /p:Configuration=Debug /p:Platform=Win32 /p:PlatformToolset=v140 /p:DebugSymbols=true /p:DebugType=pdbonly" "MultiThreadedDebug""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-32-VS2015" "Visual Studio 14 2015" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/Win32/Release/md/ /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v140 /p:DebugSymbols=false /p:DebugType=none" "MultiThreadedDLL""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-32-VS2015" "Visual Studio 14 2015" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/Win32/Release/mt/ /p:Configuration=Release /p:Platform=Win32 /p:PlatformToolset=v140 /p:DebugSymbols=false /p:DebugType=none" "MultiThreaded""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-64-VS2015" "Visual Studio 14 2015 Win64" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/x64/Debug/md/ /p:Configuration=Debug /p:Platform=x64 /p:PlatformToolset=v140 /p:DebugSymbols=true /p:DebugType=pdbonly" "MultiThreadedDebugDLL""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-64-VS2015" "Visual Studio 14 2015 Win64" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/x64/Debug/mt/ /p:Configuration=Debug /p:Platform=x64 /p:PlatformToolset=v140 /p:DebugSymbols=true /p:DebugType=pdbonly" "MultiThreadedDebug""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-64-VS2015" "Visual Studio 14 2015 Win64" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/x64/Release/md/ /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v140 /p:DebugSymbols=false /p:DebugType=none" "MultiThreadedDLL""
-	start /wait cmd.exe /k "windows_build_each.bat "libjpeg-turbo-src-64-VS2015" "Visual Studio 14 2015 Win64" "%var%" "/p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/x64/Release/mt/ /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v140 /p:DebugSymbols=false /p:DebugType=none" "MultiThreaded""
-	call rd /s /q "libjpeg-turbo-src-32-VS2015"
-	call rd /s /q "libjpeg-turbo-src-64-VS2015"
-)
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win64 /p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/x64/Debug/md/ /p:Platform=x64 /p:PlatformToolset=v140 /p:Configuration=Debug_shared /p:RuntimeLibrary=MultiThreadedDebugDLL /p:DebugSymbols=true /p:DebugType=pdbonly
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win64 /p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/x64/Debug/mt/ /p:Platform=x64 /p:PlatformToolset=v140 /p:Configuration=Debug_static /p:RuntimeLibrary=MultiThreadedDebug /p:DebugSymbols=true /p:DebugType=pdbonly
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win64 /p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/x64/Release/md/ /p:Platform=x64 /p:PlatformToolset=v140 /p:Configuration=Release_shared /p:RuntimeLibrary=MultiThreadedDLL /p:DebugSymbols=false /p:DebugType=none
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win64 /p:OutDir=../%dstnuget%/lib/native/v140/windesktop/msvcstl/x64/Release/mt/ /p:Platform=x64 /p:PlatformToolset=v140 /p:Configuration=Release_static /p:RuntimeLibrary=MultiThreaded /p:DebugSymbols=false /p:DebugType=none
+
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-arm /p:OutDir=../%dstnuget%\lib\native\android\clang\Debug\armeabi\ /p:Platform=ARM /p:PlatformToolset=Clang_3_8 /p:Configuration=Debug_shared
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-arm /p:OutDir=../%dstnuget%\lib\native\android\clang\Debug\armeabi\ /p:Platform=ARM /p:PlatformToolset=Clang_3_8 /p:Configuration=Debug_static
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-arm /p:OutDir=../%dstnuget%\lib\native\android\clang\Release\armeabi\ /p:Platform=ARM /p:PlatformToolset=Clang_3_8 /p:Configuration=Release_shared
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-arm /p:OutDir=../%dstnuget%\lib\native\android\clang\Release\armeabi\ /p:Platform=ARM /p:PlatformToolset=Clang_3_8 /p:Configuration=Release_shared
+
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-arm64 /p:OutDir=../%dstnuget%\lib\native\android\clang\Debug\arm64-v8a\ /p:Platform=ARM64 /p:PlatformToolset=Clang_3_8 /p:Configuration=Debug_shared
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-arm64 /p:OutDir=../%dstnuget%\lib\native\android\clang\Debug\arm64-v8a\ /p:Platform=ARM64 /p:PlatformToolset=Clang_3_8 /p:Configuration=Debug_static
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-arm64 /p:OutDir=../%dstnuget%\lib\native\android\clang\Release\arm64-v8a\ /p:Platform=ARM64 /p:PlatformToolset=Clang_3_8 /p:Configuration=Release_shared
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-arm64 /p:OutDir=../%dstnuget%\lib\native\android\clang\Release\arm64-v8a\ /p:Platform=ARM64 /p:PlatformToolset=Clang_3_8 /p:Configuration=Release_shared
+
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-x86 /p:OutDir=../%dstnuget%\lib\native\android\clang\Debug\x86\ /p:Platform=x86 /p:PlatformToolset=Clang_3_8 /p:Configuration=Debug_shared
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-x86 /p:OutDir=../%dstnuget%\lib\native\android\clang\Debug\x86\ /p:Platform=x86 /p:PlatformToolset=Clang_3_8 /p:Configuration=Debug_static
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-x86 /p:OutDir=../%dstnuget%\lib\native\android\clang\Release\x86\ /p:Platform=x86 /p:PlatformToolset=Clang_3_8 /p:Configuration=Release_shared
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-x86 /p:OutDir=../%dstnuget%\lib\native\android\clang\Release\x86\ /p:Platform=x86 /p:PlatformToolset=Clang_3_8 /p:Configuration=Release_shared
+
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-x64 /p:OutDir=../%dstnuget%\lib\native\android\clang\Debug\x86_64\ /p:Platform=x64 /p:PlatformToolset=Clang_3_8 /p:Configuration=Debug_shared
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-x64 /p:OutDir=../%dstnuget%\lib\native\android\clang\Debug\x86_64\ /p:Platform=x64 /p:PlatformToolset=Clang_3_8 /p:Configuration=Debug_static
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-x64 /p:OutDir=../%dstnuget%\lib\native\android\clang\Release\x86_64\ /p:Platform=x64 /p:PlatformToolset=Clang_3_8 /p:Configuration=Release_shared
+call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-x64 /p:OutDir=../%dstnuget%\lib\native\android\clang\Release\x86_64\ /p:Platform=x64 /p:PlatformToolset=Clang_3_8 /p:Configuration=Release_shared
+
+cd ..
+
 exit

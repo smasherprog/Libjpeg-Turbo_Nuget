@@ -3,7 +3,7 @@
   <metadata>
     <id>Libjpeg-Turbo</id>
 	<title>Libjpeg-Turbo 1.5.1</title>
-    <version>1.5.1</version>
+    <version>1.5.12</version>
     <authors>Scott Lee</authors>
     <owners>Scott Lee</owners>
     <licenseUrl>http://www.libjpeg-turbo.org/About/License</licenseUrl>
@@ -15,7 +15,7 @@
 
     <releaseNotes>LibJpeg-Turbo</releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>Libjpeg-Turbo native C++ v120 windesktop dyn rt-dyn msvcstl static v140 Android Clang armeabi armeabi-v7a arm64-v8a mips mips64 </tags>
+    <tags>Libjpeg-Turbo native C++ v120 v140 static shared  Android Clang armeabi arm64-v8a </tags>
     <dependencies>
     </dependencies>
   </metadata>
