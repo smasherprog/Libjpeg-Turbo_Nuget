@@ -15,7 +15,7 @@
 
     <releaseNotes>LibJpeg-Turbo</releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>Libjpeg-Turbo native C++ v120 v140 static shared  Android Clang armeabi arm64-v8a </tags>
+    <tags>Libjpeg-Turbo native C++ v120 v140 x86 x64 Android armeabi arm64-v8a static shared Release Debug Clang</tags>
     <dependencies>
     </dependencies>
   </metadata>
