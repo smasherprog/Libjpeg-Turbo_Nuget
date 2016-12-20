@@ -14,6 +14,7 @@ copy jconfigint.h ..\%dstnuget%\build\native\include
 copy libjpeg-turbo\turbojpeg.h ..\%dstnuget%\build\native\include
 copy libjpeg-turbo\jmorecfg.h ..\%dstnuget%\build\native\include
 copy libjpeg-turbo\jpeglib.h ..\%dstnuget%\build\native\include
+copy libjpeg-turbo\jerror.h ..\%dstnuget%\build\native\include
 
 call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Debug/md/ /p:Platform=x86 /p:PlatformToolset=v120 /p:Configuration=Debug_shared /p:RuntimeLibrary=MultiThreadedDebugDLL /p:DebugSymbols=true /p:DebugType=pdbonly
 call %msbuild% libjpeg-turbo-VS.sln /t:libjpeg-turbo-win32 /p:OutDir=../%dstnuget%/lib/native/v120/windesktop/msvcstl/Win32/Debug/mt/ /p:Platform=x86 /p:PlatformToolset=v120 /p:Configuration=Debug_static /p:RuntimeLibrary=MultiThreadedDebug /p:DebugSymbols=true /p:DebugType=pdbonly
